@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block title %}Detalle compra {{cliente | capfirst}}{% endblock title %}
+{% block content %}
+<h2>Detalles de la compra:</h2>
+<p>Cliente: {{cliente}}</p>
+<p>Fecha: {{compra.fecha}}</p>
+    <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+        <table class="table">
+            <thead class="atributes">
+                <tr>
+                    <th scope="col">MUEBLE</th>
+                    <th scope="col">PRECIO INDIVIDUAL</th>
+                    <th scope="col">PRECIO TOTAL</th>
+                </tr>
+            </thead>
+            <tbody>
+                    <tr>
+                        <td>
+                            {% for mueble in compra.muebles.all %}
+                                {{ mueble.name }}
+                            {% endfor %}
+                        </td>
+                        <td>
+                            {% for mueble in compra.muebles.all %}
+                                {{mueble.cost}},
+                            {% endfor %}
+                        </td>
+                        <td>
+                            {{compra.total}}
+                        </td>
+                    </tr>
+            </tbody>
+        </table>
+    </form>
+{% endblock content %}

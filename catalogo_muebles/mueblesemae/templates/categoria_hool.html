@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block title %}Hool{% endblock title %}
+{% block content %}
+    <h1>HOOL</h1>
+    <div class="row justify-content-center">
+        {% for mueble  in muebles  %}
+            {% if mueble.type == "H" %}  
+            <div class="row row-cols-1 row-cols-md-1 g-2">
+                <div class="col">
+                  <div class="card">
+                    <img src="{{mueble.picture.url}}" class="card-img-top" style="width: 60rem; height: 37rem;" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">{{mueble | capfirst}}</h5>
+                        <!--icono VER-->
+                        <a href="/{{mueble.id}}" class="btn btn-primary">
+                            <i class="fa-solid fa-eye"></i> <!--icono-->
+                        </a>
+                        <!--icono EDITAR-->
+                        {% if user.is_authenticated %}
+                            <a href="/edit_mueble/{{mueble.id}}" class="btn btn-primary">
+                                <i class="fa-solid fa-pen-fancy"></i>
+                            </a>
+                            <!--icono BORRAR-->
+                            <a onclick = "confirmDelete(event)" href="/delete_mueble/{{mueble.id}}" class="btn btn-danger">
+                                <i class="fa-solid fa-trash-can"></i>
+                            </a>
+                        {% endif %} 
+                      {% comment %} <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p> {% endcomment %}
+                    </div>
+                  </div>
+                </div>
+            </div>
+            {% endif %}      
+        {% endfor %}
+    </div>
+    <br> 
+{% endblock content %}

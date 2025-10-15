@@ -6,21 +6,21 @@
 }
 .header{
     position: fixed;
-    height: 16rem;
+    height: 12rem;
     z-index: 1030;
     left: 0;
     top: 0;
     right: 0;
 }
 .main{
-    padding-top: calc(17rem + 1rem); 
+    padding-top: calc(14rem + 1rem); 
 }
 .logo{
     width: 100%;    /* Mantiene la proporción */
     position: sticky;
     max-width: 3000px;
     height: auto;
-    max-height: 12rem;
+    max-height: 9rem;
     padding: 0rem;
 } 
 
@@ -35,13 +35,17 @@ div.barra.p-0 ul li{
     padding: 0rem 1rem;
     margin-bottom: 0;
 
+
 }
 div.barra.p-0 ul li :hover{
     background: rgba(255, 255, 255, 0.629);
     border-radius: 0.4rem;
+    transition: all 0.5s linear;
 
 }
-
+/* a.nav-link.dropdown-toggle{
+    padding: 8px;
+} */
 .footer{
     background: #ddb94d24;
     padding: 0.4rem 0;
@@ -58,17 +62,17 @@ div.barra.p-0 ul li :hover{
     background: #0000002e;
 }
 .navbar{
-    background-color: #f3e7c061;
+    background-color: #f3e7c0;
     height: 4rem;
     text-align: center;
-}
-i.fa-solid.fa-bars{
-    font-size: 2rem;
-}
-i.fa-regular.fa-id-card{
-    font-size: 1.7rem;
-}
+} 
 
+
+
+
+/* i.fa-solid.fa-bars{
+    font-size: 2rem;
+} */
 
 /* Estilo base */
 html {
@@ -80,7 +84,7 @@ body {
     line-height: 1.6; /* Espaciado entre líneas */
     color: #333; /* Color de texto neutral */
     font-size: clamp(14px, 2.5vw, 18px); /* Escalado fluido */
-    margin: 0;
+    margin: 0 auto;
 }
 
 /* Encabezados */

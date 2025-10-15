@@ -1,14 +1,13 @@
 {% extends "base.html" %}
 {% block title %}{{cliente | capfirst}}{% endblock title %}
 {% block content %}
-    <p>{{cliente}}</p>
-    <h2>Detalles:</h2>
+    <h2>Detalles Cliente:</h2>
     <ul>
         <li>Nombre: {{cliente.name}}</li>
         <li>Apellido: {{cliente.last_name}}</li>
-        <li>Cedula: {{cliente.dni}}</li>
+        <li>Cédula: {{cliente.dni}}</li>
         <li>Correo: {{cliente.email}}</li>
-        <li>Genero: {{cliente.get_gender_display}}</li>
+        <li>Género: {{cliente.get_gender_display}}</li>
     </ul>
 {% endblock content %}
     

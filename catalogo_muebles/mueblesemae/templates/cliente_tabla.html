@@ -1,33 +1,39 @@
 {% extends "base.html" %}
-{% block title %}Pagina Inicial{% endblock title %}
+{% block title %}Cliente Tabla{% endblock title %}
 
 {% block content %}
-    <h2>Tabla Clientes</h2>
-
+    <h2>Clientes</h2>
+    {% if user.is_authenticated %}
+        <label>
+            <a class="nav-link" href="{% url "mueblesemae:add_cliente" %}">Añadir cliente
+                <i class="fa-solid fa-circle-plus"></i>
+            </a>
+        </label>
+    {% endif %}
             <table class="table">
                 <thead class="atributes">
                     <tr>
                         <th scope="col">#</th>
-                        <th scope="col">Cliente</th>
-                        <th scope="col">Compras</th>
-                        <th scope="col">Edicion</th>
+                        <th scope="col">CLIENTE</th>
+                        <th scope="col">CÉDULA</th>
+                        <th scope="col">EDICIÓN</th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for cliente  in clientes  %}
                         <tr>
                             <th scope="row">{{ forloop.counter }}</th>
-                            <td>{{cliente.name}}</td>
+                            <td>{{cliente.name}} {{cliente.last_name}} </td>
                             <td>{{cliente.dni}}</td>
                             <td>
                                 {% if user.is_authenticated %}
-                                <a href="/edit_cliente/{{cliente.id}}" class="btn btn-primary">
-                                    <i class="fa-solid fa-pen-fancy"></i>
-                                </a>
-                                <!--icono BORRAR-->
-                                <a href="/delete_cliente/{{cliente.id}}" class="btn btn-danger">
-                                    <i class="fa-solid fa-trash-can"></i>
-                                </a>
+                                    <a href="/edit_cliente/{{cliente.id}}" class="btn btn-primary">
+                                        <i class="fa-solid fa-pen-fancy"></i>
+                                    </a>
+                                    <!--icono BORRAR-->
+                                    <a onclick = "confirmDelete(event)" href="/delete_cliente/{{cliente.id}}" class="btn btn-danger">
+                                        <i class="fa-solid fa-trash-can"></i>
+                                    </a>
                                 {%else%}
                                     <p>no disponible</p>
                                 {% endif %} 
@@ -40,5 +46,4 @@
                     {% endfor %}
                 </tbody>
             </table>
-
 {% endblock content %}

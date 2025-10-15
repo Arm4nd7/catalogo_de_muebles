@@ -1,8 +1,15 @@
 {% extends "base.html" %}
-{% block title %}Pagina Inicial{% endblock title %}
+{% block title %}Cliente Tarjeta{% endblock title %}
 
 {% block content %}
     <h2>Clientes</h2>
+    {% if user.is_authenticated %}
+        <label>
+            <a class="nav-link" href="{% url "mueblesemae:add_cliente" %}">Añadir cliente
+                <i class="fa-solid fa-circle-plus"></i>
+            </a>
+        </label>
+    {% endif %}
     <div class="row">
         {% for cliente  in clientes  %}
         <div class="col-sm-3">
@@ -16,7 +23,7 @@
                 {% endif %}
                 <div class="card-body">
                     <h5 class="card-title">{{cliente | capfirst}}</h5>
-                    <p class="card-text">Cedula: {{cliente.dni}} </p>
+                    <p class="card-text">Cédula: {{cliente.dni}} </p>
                     <!--icono VER-->
                     <a href="/cliente/{{cliente.id}}" class="btn btn-primary">
                         <i class="fa-solid fa-eye"></i> <!--icono-->
@@ -27,15 +34,14 @@
                             <i class="fa-solid fa-pen-fancy"></i>
                         </a>
                         <!--icono BORRAR-->
-                        <a href="/delete_cliente/{{cliente.id}}" class="btn btn-danger">
+                        <a onclick = "confirmDelete(event)" type="button" id ="borrar" href="/delete_cliente/{{cliente.id}}" class="btn btn-danger">
                             <i class="fa-solid fa-trash-can"></i>
                         </a>
-                    {% endif %} 
+                        {% endif %} 
                 </div>
             </div>
         </div>        
         {% endfor %}
     </div>
-    <br>
-    
+    <br> 
 {% endblock content %}

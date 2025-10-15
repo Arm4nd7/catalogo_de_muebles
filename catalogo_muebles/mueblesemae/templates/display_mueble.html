@@ -1,12 +1,22 @@
 {% extends "base.html" %}
 {% block title  %} {{mueble | capfirst}} {% endblock title  %}
 {% block content %}
-    <p>El mueble {{mueble | capfirst}} tiene: </p>
-    <h2>Caracteristicas</h2>
-    <ul>
-        <li>Nombre: {{mueble.name}}</li>
-        <li>Tipo: {{mueble.get_type_display}}</li>
-        <li>Material: {{mueble.get_material_display}}</li>
-        <li>Estilo: {{mueble.get_style_display}}</li>
-    </ul>
+    <h2>Características</h2>
+    <div class="card mb-3" style="max-width: 540px;">
+        <div class="row g-0">
+            <div class="col-md-4">
+                <img src="{{mueble.picture.url}}" class="img-fluid rounded-start" alt="...">
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <ul>
+                        <li>Nombre: {{mueble.name}}</li>
+                        <li>Tipo: {{mueble.get_type_display}}</li>
+                        <li>Material: {{mueble.get_material_display}}</li>
+                        <li>Estilo: {{mueble.get_style_display}}</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock content %}
