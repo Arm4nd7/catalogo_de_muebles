@@ -1,22 +1,26 @@
-databases:
-  - name: mueblesemae
-    plan: free
-    databaseName: mueblesemae
-    user: mueblesemae
-
+# render.yaml
 services:
   - type: web
+    name: django-app
+    env: python
     plan: free
-    name: mueblesemae
-    runtime: python
-    buildCommand: "./build.sh"
-    startCommand: "python -m gunicorn mueblesemae.asgi:application -k uvicorn.workers.UvicornWorker"    
+    buildCommand: |
+      pip install -r requirements.txt
+      python manage.py collectstatic --noinput
+    startCommand: gunicorn catalogo_muebles.wsgi:application
     envVars:
+      - key: DJANGO_SETTINGS_MODULE
+        value: catalogo_muebles.settings
       - key: DATABASE_URL
         fromDatabase:
-          name: mueblesemae
+          name: django-db
           property: connectionString
       - key: SECRET_KEY
         generateValue: true
-      - key: WEB_CONCURRENCY
-        value: 4
+      - key: DEBUG
+        value: false
+
+databases:
+  - name: django-db
+    plan: free
+
