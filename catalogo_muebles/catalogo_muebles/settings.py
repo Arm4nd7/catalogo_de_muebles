@@ -9,10 +9,12 @@ SECRET_KEY = os.environ.get('SECRET_KEY', 'dev-secret-key')
 DEBUG = os.environ.get('DEBUG', 'True') == 'True'
 
 # 🌍 Hosts
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
 if RENDER_EXTERNAL_HOSTNAME:
     ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
+else:
+    ALLOWED_HOSTS.append('*')  # Solo útil en desarrollo
 
 # 🚀 Aplicaciones
 INSTALLED_APPS = [
@@ -28,7 +30,7 @@ INSTALLED_APPS = [
 # ⚙️ Middleware
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',  # ✅ debe ir justo aquí
+    'whitenoise.middleware.WhiteNoiseMiddleware',  # ✅ importante para Render
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -57,12 +59,12 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'catalogo_muebles.wsgi.application'
 
-# 🗃️ Base de datos (Render usa DATABASE_URL automáticamente)
+# 🗃️ Base de datos
 DATABASES = {
     'default': dj_database_url.config(
         default=f'sqlite:///{BASE_DIR / "db.sqlite3"}',
         conn_max_age=600,
-        ssl_require=False
+        ssl_require=True  # ✅ Render usa SSL
     )
 }
 
@@ -83,11 +85,11 @@ USE_TZ = True
 # 📁 Archivos estáticos
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
-STATICFILES_DIRS = [
-    BASE_DIR / 'static'
-]
 
-# ✅ Configuración Whitenoise (sirve estáticos en Render)
+if (BASE_DIR / 'static').exists():
+    STATICFILES_DIRS = [BASE_DIR / 'static']
+
+# ✅ Whitenoise (sirve archivos estáticos en Render)
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # 📸 Archivos multimedia
